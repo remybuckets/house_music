@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/*
+ * HouseMusic.ai design tokens — Tailwind v4 style.
+ *
+ * In v4 the theme lives here, not in tailwind.config. Each --color-* /
+ * --font-* / --animate-* variable below auto-generates the matching utility
+ * (e.g. --color-amber -> bg-amber, text-amber; --animate-pulsebar ->
+ * animate-pulsebar). Keyframes are plain CSS, referenced by the --animate-*.
+ *
+ *   ink      #0B0A0F  near-black room
+ *   booth    #15131C  raised surface (DJ booth, message cards)
+ *   haze     #221E2E  hover / borders, like smoke in a light beam
+ *   amber    #F5A623  the warm bulb over a Chicago warehouse — primary accent
+ *   magenta  #E0509E  the other gel-light — the user's voice
+ *   bone     #EDE8DD  warm off-white text, not clinical pure white
+ */
+@theme {
+  --color-ink: #0b0a0f;
+  --color-booth: #15131c;
+  --color-haze: #221e2e;
+  --color-amber: #f5a623;
+  --color-magenta: #e0509e;
+  --color-bone: #ede8dd;
+  --color-muted: #8a8397;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-pulsebar: pulsebar 0.9s ease-in-out infinite;
+  --animate-risein: risein 0.28s ease-out both;
+}
+
+@keyframes pulsebar {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes risein {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+}
+
+/* Thin, club-dark scrollbar so the transcript doesn't break the mood. */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--color-haze); border-radius: 9999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
