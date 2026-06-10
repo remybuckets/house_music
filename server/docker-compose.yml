@@ -1,0 +1,28 @@
+# HouseMusic.ai - Step 3c: local Postgres + pgvector for the vector store.
+#
+#   docker compose up -d
+#   export DATABASE_URL=postgresql://house:house@localhost:5432/housemusic
+#   python ingest.py          # embed corpus -> Postgres (needs AWS creds)
+#   uvicorn app:app --reload  # backend now retrieves from pgvector
+#
+# The pgvector/pgvector image is stock Postgres with the `vector` extension
+# already compiled in; ingest.py runs CREATE EXTENSION on first connect.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: house
+      POSTGRES_PASSWORD: house
+      POSTGRES_DB: housemusic
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U house -d housemusic"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:
