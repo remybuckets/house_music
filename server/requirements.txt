@@ -1,0 +1,17 @@
+# API
+fastapi
+uvicorn
+pydantic
+
+# RAG engine (AWS Bedrock embeddings + chat)
+boto3
+numpy
+requests
+
+# Postgres / pgvector store (only needed when DATABASE_URL is set)
+psycopg[binary,pool]
+pgvector
+
+# Tests
+pytest
+httpx
